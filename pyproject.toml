@@ -11,6 +11,7 @@ version = "0.1.0"
 description = "Pack ELF files in a given path to make them relocatable"
 authors = ["Fixpoint, Inc. <developer@fixpoint.co.jp>"]
 license = "MIT"
+readme = "README.md"
 homepage = "https://github.com/fixpoint/packelf"
 repository = "https://github.com/fixpoint/packelf"
 keywords = ["Linux"]
