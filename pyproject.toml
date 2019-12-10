@@ -1,0 +1,35 @@
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+combine_as_imports = true
+line_length = 88
+
+[tool.poetry]
+name = "packelf"
+version = "0.1.0"
+description = "Pack ELF files in a given path to make them relocatable"
+authors = ["Fixpoint, Inc. <developer@fixpoint.co.jp>"]
+license = "MIT"
+homepage = "https://github.com/fixpoint/packelf"
+repository = "https://github.com/fixpoint/packelf"
+keywords = ["Linux"]
+classifiers = [
+    "Topic :: Software Development :: Build Tools",
+]
+
+[tool.poetry.scripts]
+"packelf" = "packelf.cli:main"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+isort = "^4.3"
+mypy = "^0.730.0"
+black = "^19.10b0"
+autoflake = "^1.3.1"
+
+[build-system]
+requires = ["poetry>=1.0.0b9"]
+build-backend = "poetry.masonry.api"
