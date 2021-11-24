@@ -158,8 +158,6 @@ def packelf(path: Path, lib: Path) -> None:
             if f.suffix in NON_ELF_EXTENSIONS or not is_elf(f):
                 continue
             relocate_shared_objects(f, lib, EXTERNAL_SHARED_LIBRARIES)
-        for d in (root_ / d for d in dirs):
-            packelf(d, lib)
 
 
 def main():
