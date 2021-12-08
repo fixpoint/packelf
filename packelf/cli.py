@@ -110,7 +110,7 @@ def is_elf(path: Path) -> bool:
 def patchelf(elf: Path, libs: Iterable[Path]) -> None:
     rpath = ":".join((r"$ORIGIN/%s" % os.path.relpath(lib, elf.parent) for lib in libs))
     print("Patch %s [%s]" % (elf, rpath))
-    subprocess.run(["patchelf", "--set-rpath", rpath, str(elf)])
+    subprocess.run(["patchelf", "--set-rpath", rpath, str(elf)], check=True)
 
 
 def iter_shared_objects(elf: Path) -> Iterator[Tuple[str, Path]]:
