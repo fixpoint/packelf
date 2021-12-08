@@ -172,7 +172,7 @@ def main():
     lib = Path(args.lib)
     for path in (Path(p) for p in args.paths):
         if args.copy_all:
-            excludes = set()
+            excludes = None
         else:
             excludes = EXTERNAL_SHARED_LIBRARIES
         packelf(path, path.joinpath(lib), excludes)
