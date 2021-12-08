@@ -152,14 +152,12 @@ def relocate_shared_objects(
 
 def packelf(path: Path, lib: Path) -> None:
     """Pack ELF files in a given path by relocating shared objects"""
-    for root, dirs, files in os.walk(str(path)):
+    for root, _dirs, files in os.walk(str(path)):
         root_ = Path(root)
         for f in (root_ / f for f in files):
             if f.suffix in NON_ELF_EXTENSIONS or not is_elf(f):
                 continue
             relocate_shared_objects(f, lib, EXTERNAL_SHARED_LIBRARIES)
-        for d in (root_ / d for d in dirs):
-            packelf(d, lib)
 
 
 def main():
