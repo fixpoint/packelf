@@ -150,14 +150,14 @@ def relocate_shared_objects(
     patchelf(elf, [lib])
 
 
-def packelf(path: Path, lib: Path) -> None:
+def packelf(path: Path, lib: Path, excludes: Optional[Set[str]] = None) -> None:
     """Pack ELF files in a given path by relocating shared objects"""
     for root, _dirs, files in os.walk(str(path)):
         root_ = Path(root)
         for f in (root_ / f for f in files):
             if f.suffix in NON_ELF_EXTENSIONS or not is_elf(f):
                 continue
-            relocate_shared_objects(f, lib, EXTERNAL_SHARED_LIBRARIES)
+            relocate_shared_objects(f, lib, excludes)
 
 
 def main():
@@ -166,11 +166,16 @@ def main():
     )
     parser.add_argument("-l", "--lib", default="./.lib")
     parser.add_argument("paths", nargs="+")
+    parser.add_argument("-a", "--copy-all", action='store_true')
     args = parser.parse_args()
 
     lib = Path(args.lib)
     for path in (Path(p) for p in args.paths):
-        packelf(path, path.joinpath(lib))
+        if args.copy_all:
+            excludes = None
+        else:
+            excludes = EXTERNAL_SHARED_LIBRARIES
+        packelf(path, path.joinpath(lib), excludes)
 
 
 if __name__ == "__main__":
